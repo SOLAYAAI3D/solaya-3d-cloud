@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>SOLAYA · 3D GenAI × Google Cloud</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Solaya 是一款基于 Google Cloud 构建的 3D GenAI 平台，将 3 分钟手机扫描转化为高质量 3D 模型与电商视觉内容。"
+  />
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #f4f7ff, #fefbff);
+      --primary: #3c4bff;
+      --primary-soft: #e3e7ff;
+      --accent: #ff7aa2;
+      --text-main: #151728;
+      --text-muted: #6b6f80;
+      --card-bg: #ffffff;
+      --border-subtle: rgba(21, 23, 40, 0.06);
+      --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.12);
+      --radius-xl: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 24px 20px 0;
+    }
+
+    .nav {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 650;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .logo-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: 10px;
+      background: conic-gradient(
+        from 120deg,
+        #ffb3c7,
+        #ffc56b,
+        #9df1ff,
+        #b0a7ff,
+        #ffb3c7
+      );
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border-radius: 8px;
+      background: #f9fbff;
+      mix-blend-mode: screen;
+      opacity: 0.9;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .pill-cloud {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(60, 75, 255, 0.06);
+      border: 1px solid rgba(60, 75, 255, 0.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #202447;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #c4fff0, #17cba5);
+      box-shadow: 0 0 0 5px rgba(23, 203, 165, 0.18);
+    }
+
+    main {
+      flex: 1;
+      padding: 36px 20px 48px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ===== Hero Section with 3D Card ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .hero-text {
+      text-align: left;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 10px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #ffd7e9, #ff7aa2);
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 36px);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+
+    h1 span.highlight {
+      background: linear-gradient(120deg, #3c4bff, #ff7aa2);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 18px;
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .metric-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(21, 23, 40, 0.05);
+      font-size: 12px;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .metric-pill strong {
+      font-size: 15px;
+      color: var(--primary);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0 0, #fff3ff, #3c4bff);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 550;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 18px 35px rgba(42, 60, 180, 0.38);
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease,
+        filter 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 45px rgba(22, 36, 120, 0.45);
+      filter: brightness(1.02);
+    }
+
+    .btn-secondary-link {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary-link span {
+      font-size: 16px;
+    }
+
+    /* 3D card */
+    .hero-visual-wrapper {
+      perspective: 1400px;
+      margin-top: 10px;
+    }
+
+    .hero-card {
+      position: relative;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at 10% 0, #ffffff, #f2f4ff);
+      border: 1px solid var(--border-subtle);
+      padding: 20px 20px 18px;
+      box-shadow: var(--shadow-soft);
+      transform-style: preserve-3d;
+      transform: rotateX(14deg) rotateY(-18deg) translateY(10px);
+      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .hero-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #4b4f70;
+    }
+
+    .hero-card-chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(60, 75, 255, 0.18);
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-card-chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #a1ffdd, #22c55e);
+    }
+
+    .hero-card-body {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .hero-card-main-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .hero-card-main-text b {
+      color: #30344e;
+    }
+
+    .hero-orbit {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      margin-left: auto;
+      transform-style: preserve-3d;
+      transform: rotateX(18deg) rotateY(-20deg);
+    }
+
+    .hero-orbit-ring {
+      position: absolute;
+      inset: 24px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 255, 0.55);
+      transform: rotateX(72deg);
+    }
+
+    .hero-orbit-core {
+      position: absolute;
+      inset: 48px;
+      border-radius: 30px;
+      background: radial-gradient(circle at 30% 20%, #ffffff, #b0c6ff);
+      box-shadow: 0 18px 38px rgba(30, 64, 175, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #101325;
+      text-align: center;
+      padding: 6px 10px;
+    }
+
+    .hero-orbit-chip {
+      position: absolute;
+      width: 72px;
+      padding: 6px 8px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(148, 163, 255, 0.6);
+      font-size: 11px;
+      color: #111827;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.22);
+      transform-style: preserve-3d;
+    }
+
+    .hero-orbit-chip:nth-child(1) {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%) translateZ(35px);
+    }
+
+    .hero-orbit-chip:nth-child(2) {
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%) translateZ(25px);
+    }
+
+    .hero-orbit-chip:nth-child(3) {
+      bottom: 4px;
+      left: 4px;
+      transform: translateZ(18px);
+    }
+
+    .hero-card-footer {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(148, 163, 255, 0.35);
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-card-footer span strong {
+      color: #111827;
+    }
+
+    /* Sections */
+    section {
+      margin-top: 40px;
+    }
+
+    section h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    section p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .section-card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      padding: 18px 18px 20px;
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+      margin-top: 12px;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .section-item-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .section-item-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: #1e2448;
+      font-size: 11px;
+      margin-right: 8px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #3c4bff;
+    }
+
+    .inline-kv {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .inline-kv strong {
+      color: #111827;
+    }
+
+    .lab-highlight {
+      margin-top: 6px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(244, 244, 255, 0.9);
+      border: 1px dashed rgba(148, 163, 255, 0.6);
+      font-size: 13px;
+      color: #1f2937;
+    }
+
+    /* Footer */
+    footer {
+      padding: 0 20px 26px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      border-top: 1px solid rgba(148, 163, 255, 0.45);
+      padding-top: 14px;
+      margin-top: 20px;
+    }
+
+    .footer-inner a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    @media (max-width: 720px) {
+      .hero-card-body {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-orbit {
+        margin: 4px auto 0;
+      }
+
+      .hero-card {
+        transform: rotateX(10deg) rotateY(-10deg) translateY(4px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <nav class="nav">
+        <div class="logo">
+          <div class="logo-mark"></div>
+          <span>SOLAYA</span>
+        </div>
+        <div class="nav-right">
+          <div class="pill-cloud">
+            <span class="pill-dot"></span>
+            <span>Built on Google Cloud</span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+          <div class="hero-text">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              <span>3D GenAI · 电商视觉 · Cloud-native</span>
+            </div>
+            <h1>
+              高质量 3D 内容，<span class="highlight">3 分钟手机扫描</span> 即刻生成
+            </h1>
+            <p class="hero-subtitle">
+              SOLAYA 是一款 3D GenAI 深科技平台，基于 Google Cloud 构建，帮助品牌用一部手机完成产品扫描，在几分钟内自动生成 3D 模型、电商图片、视频与营销素材，大幅降低拍摄与建模成本。
+            </p>
+
+            <div class="hero-metrics">
+              <div class="metric-pill">
+                <strong>65%</strong><span>Time saving</span>
+              </div>
+              <div class="metric-pill">
+                <strong>80%</strong><span>Cost reduction</span>
+              </div>
+              <div class="metric-pill">
+                <strong>50%</strong><span>Conversion uplift</span>
+              </div>
+              <div class="metric-pill">
+                <strong>-21%</strong><span>Return rate</span>
+              </div>
+            </div>
+
+            <div class="hero-cta">
+              <a class="btn-primary" href="mailto:dali@solaya.info">
+                联系我们 · 请求 Demo
+                <span>↗</span>
+              </a>
+              <a
+                class="btn-secondary-link"
+                href="mailto:dali@solaya.info?subject=Google%20Cloud%20Integration%20-%20Solaya"
+              >
+                <span>●</span> 与我们讨论 Google Cloud 集成
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-visual-wrapper">
+            <div class="hero-card" id="heroCard">
+              <div class="hero-card-header">
+                <div class="hero-card-title">3D Vision Pipeline</div>
+                <div class="hero-card-chip">
+                  <span class="hero-card-chip-dot"></span>
+                  <span>Vertex AI · GKE · Cloud Run</span>
+                </div>
+              </div>
+              <div class="hero-card-body">
+                <div class="hero-card-main-text">
+                  <b>从扫描到 3D 资产，全流程自动化：</b><br />
+                  手机拍摄的多视角图像首先进入 Cloud Storage，并通过 Vertex AI
+                  触发多视角深度估计、网格重建与纹理生成。渲染好的 3D 模型、图片与视频由
+                  Cloud Run / GKE 提供低延迟 API 分发，支持电商详情页、虚拟试戴与 3D
+                  Commerce。
+                </div>
+                <div class="hero-orbit">
+                  <div class="hero-orbit-ring"></div>
+                  <div class="hero-orbit-core">
+                    3D GenAI<br />
+                    Google Cloud Native
+                  </div>
+                  <div class="hero-orbit-chip">
+                    Scan → GCS<br />3 分钟采集
+                  </div>
+                  <div class="hero-orbit-chip">
+                    Vertex AI<br />重建 & 推理
+                  </div>
+                  <div class="hero-orbit-chip">
+                    Cloud Run / GKE<br />实时交付
+                  </div>
+                </div>
+              </div>
+              <div class="hero-card-footer">
+                <span><strong>Region：</strong> Europe · Google Cloud</span>
+                <span><strong>Use cases：</strong> eCommerce · CPG · Luxury</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- How it works -->
+        <section>
+          <h2>工作流 · 从手机扫描到无限视觉内容</h2>
+          <p>
+            Solaya 把传统需要摄影棚、摄影师与 3D 外包的流程，收敛成用户侧的一次简单扫描，
+            其余全部托管在 Google Cloud 上的自动化 pipeline 中。
+          </p>
+          <div class="section-card">
+            <div class="section-grid">
+              <div>
+                <div class="section-item-title">1 · Scan / Capture</div>
+                <div class="section-item-text">
+                  用户使用手机对产品进行约 3 分钟环绕拍摄，可视需求翻转产品以捕获底部。原始图像与元数据被安全写入
+                  Cloud Storage，并进行基础校正与去噪。
+                </div>
+              </div>
+              <div>
+                <div class="section-item-title">2 · Process / Reconstruct</div>
+                <div class="section-item-text">
+                  由 Vertex AI 启动多阶段推理：多视角几何估计、稠密点云生成、网格重建与纹理贴图。管线对输出质量进行自动评分与优化，以满足电商级别视觉标准。
+                </div>
+              </div>
+              <div>
+                <div class="section-item-title">3 · Redeem / Publish</div>
+                <div class="section-item-text">
+                  生成的 3D 模型、图片与视频通过 Cloud Run / GKE 暴露为 API 与管理后台，支持电商页面、社交媒体营销、虚拟试戴与互动展示，实现真正“无限角度、无限风格”的内容扩展。
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Google Cloud Integration -->
+        <section>
+          <h2>与 Google Cloud 的深度集成</h2>
+          <p>
+            Solaya 采用云原生架构，将 3D GenAI 的训练、推理与内容交付全部落在
+            Google Cloud 上，既具备强扩展性，也满足企业级安全与合规要求。
+          </p>
+          <div class="section-card">
+            <div class="badge">
+              <span class="badge-dot"></span>
+              <span>核心产品</span>
+            </div>
+            <p class="inline-kv">
+              <strong>Storage：</strong>Cloud Storage 存储扫描图像与输出资产<br />
+              <strong>AI / ML：</strong>Vertex AI 完成训练与批量 / 实时推理<br />
+              <strong>Compute：</strong>Cloud Run + GKE 运行渲染与 API 服务<br />
+              <strong>Data：</strong>BigQuery 用于资产索引与内容分析<br />
+              <strong>Observability：</strong>Cloud Logging & Monitoring 全链路监控
+            </p>
+            <div class="lab-highlight">
+              安全层面，平台通过 IAM 控制访问权限，结合 VPC Service Controls 与 Cloud
+              KMS（CMEK）实现多租户隔离与端到端加密，满足品牌方对数据主权与资产所有权的要求。
+            </div>
+          </div>
+        </section>
+
+        <!-- Lab Insights -->
+        <section>
+          <h2>Lab Insights · 更聪明的 3D 产品模拟</h2>
+          <p>
+            Solaya Lab 持续探索如何通过 3D GenAI 与物理感知建模，帮助品牌预测产品在不同环境、材质与光线下的真实表现。
+          </p>
+          <div class="section-card">
+            <div class="section-grid">
+              <div>
+                <div class="section-item-title">更高质量的 3D 重建</div>
+                <div class="section-item-text">
+                  借助 Vertex AI 与可扩展 GPU 基础设施，Solaya 可以不断更新重建模型，提升细节表现与材质还原度，为虚拟试戴与高端品牌展示提供更真实的视觉体验。
+                </div>
+              </div>
+              <div>
+                <div class="section-item-title">数据驱动的内容策略</div>
+                <div class="section-item-text">
+                  通过 BigQuery 与后续分析工具，品牌可以追踪不同角度、风格与场景组合对转化率与退货率的影响，从而反向指导内容生成策略与电商页面布局。
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div>
+          © <span id="year"></span> SOLAYA · Nice, France · Supported by NVIDIA,
+          Bpifrance & INRIA
+        </div>
+        <div>
+          联系邮箱：
+          <a href="mailto:dali@solaya.info">dali@solaya.info</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 动态年份
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // 高级 3D 视角：跟随鼠标的 hero 卡片倾斜效果
+    (function () {
+      const card = document.getElementById("heroCard");
+      if (!card) return;
+
+      const maxRotateX = 16; // deg
+      const maxRotateY = 20; // deg
+
+      function handleMove(e) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const percentX = (x - centerX) / centerX;
+        const percentY = (y - centerY) / centerY;
+
+        const rotateY = -percentX * maxRotateY;
+        const rotateX = percentY * maxRotateX;
+
+        card.style.transform =
+          "rotateX(" +
+          rotateX.toFixed(2) +
+          "deg) rotateY(" +
+          rotateY.toFixed(2) +
+          "deg) translateY(6px)";
+        card.style.boxShadow =
+          "0 26px 55px rgba(15, 23, 42, 0.30)";
+      }
+
+      function handleLeave() {
+        card.style.transform =
+          "rotateX(14deg) rotateY(-18deg) translateY(10px)";
+        card.style.boxShadow =
+          "0 22px 45px rgba(15, 23, 42, 0.12)";
+      }
+
+      card.addEventListener("mousemove", handleMove);
+      card.addEventListener("mouseleave", handleLeave);
+    })();
+  </script>
+</body>
+</html>
