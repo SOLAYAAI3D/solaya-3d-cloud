@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>SOLAYA · 3D GenAI × Google Cloud</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Solaya 是一款基于 Google Cloud 构建的 3D GenAI 平台，将 3 分钟手机扫描转化为高质量 3D 模型与电商视觉内容。"
+    content="Solaya is a 3D GenAI platform built on Google Cloud that turns a 3-minute smartphone scan into high-quality 3D models and e-commerce visuals."
   />
   <style>
     :root {
@@ -134,7 +134,7 @@
       margin: 0 auto;
     }
 
-    /* ===== Hero Section with 3D Card ===== */
+    /* Hero Section with 3D Card */
     .hero {
       display: grid;
       grid-template-columns: 1fr;
@@ -218,6 +218,15 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .hero-cta-secondary-row {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
     }
 
     .btn-primary {
@@ -243,6 +252,31 @@
       transform: translateY(-1px);
       box-shadow: 0 24px 45px rgba(22, 36, 120, 0.45);
       filter: brightness(1.02);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(60, 75, 255, 0.15);
+      color: #1f2937;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+      transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.16);
+      background: rgba(255, 255, 255, 1);
     }
 
     .btn-secondary-link {
@@ -403,7 +437,6 @@
       color: #111827;
     }
 
-    /* Sections */
     section {
       margin-top: 40px;
     }
@@ -486,7 +519,6 @@
       color: #1f2937;
     }
 
-    /* Footer */
     footer {
       padding: 0 20px 26px;
       font-size: 12px;
@@ -551,18 +583,22 @@
           <div class="hero-text">
             <div class="eyebrow">
               <span class="eyebrow-dot"></span>
-              <span>3D GenAI · 电商视觉 · Cloud-native</span>
+              <span>3D GenAI · E-commerce visuals · Cloud-native</span>
             </div>
             <h1>
-              高质量 3D 内容，<span class="highlight">3 分钟手机扫描</span> 即刻生成
+              High-quality 3D content from a
+              <span class="highlight">3-minute smartphone scan</span>
             </h1>
             <p class="hero-subtitle">
-              SOLAYA 是一款 3D GenAI 深科技平台，基于 Google Cloud 构建，帮助品牌用一部手机完成产品扫描，在几分钟内自动生成 3D 模型、电商图片、视频与营销素材，大幅降低拍摄与建模成本。
+              Solaya is a 3D GenAI deeptech platform built on Google Cloud. With
+              a short handheld scan, brands can automatically generate 3D
+              models, e-commerce images, videos, and marketing visuals—without
+              studios, manual modeling, or complex infrastructure.
             </p>
 
             <div class="hero-metrics">
               <div class="metric-pill">
-                <strong>65%</strong><span>Time saving</span>
+                <strong>65%</strong><span>Time saved</span>
               </div>
               <div class="metric-pill">
                 <strong>80%</strong><span>Cost reduction</span>
@@ -577,14 +613,24 @@
 
             <div class="hero-cta">
               <a class="btn-primary" href="mailto:dali@solaya.info">
-                联系我们 · 请求 Demo
+                Talk to us · Request a live demo
                 <span>↗</span>
               </a>
               <a
                 class="btn-secondary-link"
                 href="mailto:dali@solaya.info?subject=Google%20Cloud%20Integration%20-%20Solaya"
               >
-                <span>●</span> 与我们讨论 Google Cloud 集成
+                <span>●</span> Discuss Google Cloud integration
+              </a>
+            </div>
+
+            <div class="hero-cta-secondary-row">
+              <a
+                class="btn-ghost"
+                href="Solaya-Google-Cloud-Joint-Solution.pdf"
+                download
+              >
+                Apply for Google Cloud co-marketing / Download joint solution PDF
               </a>
             </div>
           </div>
@@ -600,11 +646,13 @@
               </div>
               <div class="hero-card-body">
                 <div class="hero-card-main-text">
-                  <b>从扫描到 3D 资产，全流程自动化：</b><br />
-                  手机拍摄的多视角图像首先进入 Cloud Storage，并通过 Vertex AI
-                  触发多视角深度估计、网格重建与纹理生成。渲染好的 3D 模型、图片与视频由
-                  Cloud Run / GKE 提供低延迟 API 分发，支持电商详情页、虚拟试戴与 3D
-                  Commerce。
+                  <b>From capture to 3D assets, fully automated:</b><br />
+                  Multi-view images from a smartphone capture session are
+                  ingested into Cloud Storage and processed by Vertex AI for
+                  depth estimation, mesh reconstruction, and texture synthesis.
+                  Rendered 3D models, images, and videos are served via Cloud
+                  Run / GKE APIs for product detail pages, virtual try-on, and
+                  3D commerce experiences.
                 </div>
                 <div class="hero-orbit">
                   <div class="hero-orbit-ring"></div>
@@ -613,19 +661,19 @@
                     Google Cloud Native
                   </div>
                   <div class="hero-orbit-chip">
-                    Scan → GCS<br />3 分钟采集
+                    Scan → GCS<br />3-minute capture
                   </div>
                   <div class="hero-orbit-chip">
-                    Vertex AI<br />重建 & 推理
+                    Vertex AI<br />Reconstruct & infer
                   </div>
                   <div class="hero-orbit-chip">
-                    Cloud Run / GKE<br />实时交付
+                    Cloud Run / GKE<br />Real-time delivery
                   </div>
                 </div>
               </div>
               <div class="hero-card-footer">
-                <span><strong>Region：</strong> Europe · Google Cloud</span>
-                <span><strong>Use cases：</strong> eCommerce · CPG · Luxury</span>
+                <span><strong>Region:</strong> Europe · Google Cloud</span>
+                <span><strong>Use cases:</strong> E-commerce · CPG · Luxury</span>
               </div>
             </div>
           </div>
@@ -633,30 +681,43 @@
 
         <!-- How it works -->
         <section>
-          <h2>工作流 · 从手机扫描到无限视觉内容</h2>
+          <h2>How it works · From scan to unlimited visuals</h2>
           <p>
-            Solaya 把传统需要摄影棚、摄影师与 3D 外包的流程，收敛成用户侧的一次简单扫描，
-            其余全部托管在 Google Cloud 上的自动化 pipeline 中。
+            Solaya collapses what used to require studios, photographers, and
+            external 3D vendors into a single scan on the brand side, with the
+            entire pipeline automated on Google Cloud.
           </p>
           <div class="section-card">
             <div class="section-grid">
               <div>
                 <div class="section-item-title">1 · Scan / Capture</div>
                 <div class="section-item-text">
-                  用户使用手机对产品进行约 3 分钟环绕拍摄，可视需求翻转产品以捕获底部。原始图像与元数据被安全写入
-                  Cloud Storage，并进行基础校正与去噪。
+                  A merchandiser or content team member performs an
+                  approximately 3-minute handheld capture around the product,
+                  optionally flipping it to reveal the bottom. Raw images and
+                  metadata are securely written to Cloud Storage, where basic
+                  color and noise corrections are applied.
                 </div>
               </div>
               <div>
                 <div class="section-item-title">2 · Process / Reconstruct</div>
                 <div class="section-item-text">
-                  由 Vertex AI 启动多阶段推理：多视角几何估计、稠密点云生成、网格重建与纹理贴图。管线对输出质量进行自动评分与优化，以满足电商级别视觉标准。
+                  Vertex AI orchestrates a multi-stage inference pipeline:
+                  multi-view geometry estimation, dense point cloud, mesh
+                  reconstruction, and physically-aware texture generation. Every
+                  output is quality-scored to meet e-commerce visual standards
+                  for detail, sharpness, and consistency.
                 </div>
               </div>
               <div>
                 <div class="section-item-title">3 · Redeem / Publish</div>
                 <div class="section-item-text">
-                  生成的 3D 模型、图片与视频通过 Cloud Run / GKE 暴露为 API 与管理后台，支持电商页面、社交媒体营销、虚拟试戴与互动展示，实现真正“无限角度、无限风格”的内容扩展。
+                  Generated 3D models, stills, and videos are exposed through
+                  Cloud Run / GKE APIs and a management console, powering
+                  product pages, social media campaigns, interactive 3D
+                  viewers, virtual try-on, and continuous creative testing—
+                  effectively “unlimited angles, unlimited styles” from a single
+                  capture.
                 </div>
               </div>
             </div>
@@ -665,48 +726,64 @@
 
         <!-- Google Cloud Integration -->
         <section>
-          <h2>与 Google Cloud 的深度集成</h2>
+          <h2>Deep integration with Google Cloud</h2>
           <p>
-            Solaya 采用云原生架构，将 3D GenAI 的训练、推理与内容交付全部落在
-            Google Cloud 上，既具备强扩展性，也满足企业级安全与合规要求。
+            Solaya uses a cloud-native architecture where 3D GenAI training,
+            inference, and content delivery run entirely on Google Cloud,
+            combining scalability, performance, and enterprise-grade security.
           </p>
           <div class="section-card">
             <div class="badge">
               <span class="badge-dot"></span>
-              <span>核心产品</span>
+              <span>Core products</span>
             </div>
             <p class="inline-kv">
-              <strong>Storage：</strong>Cloud Storage 存储扫描图像与输出资产<br />
-              <strong>AI / ML：</strong>Vertex AI 完成训练与批量 / 实时推理<br />
-              <strong>Compute：</strong>Cloud Run + GKE 运行渲染与 API 服务<br />
-              <strong>Data：</strong>BigQuery 用于资产索引与内容分析<br />
-              <strong>Observability：</strong>Cloud Logging & Monitoring 全链路监控
+              <strong>Storage:</strong> Cloud Storage for scans and generated
+              assets<br />
+              <strong>AI / ML:</strong> Vertex AI for training and batch / online
+              inference<br />
+              <strong>Compute:</strong> Cloud Run + GKE for rendering and API
+              services<br />
+              <strong>Data:</strong> BigQuery for asset indexing, performance
+              analytics, and content insights<br />
+              <strong>Observability:</strong> Cloud Logging & Cloud Monitoring
+              for full pipeline visibility
             </p>
             <div class="lab-highlight">
-              安全层面，平台通过 IAM 控制访问权限，结合 VPC Service Controls 与 Cloud
-              KMS（CMEK）实现多租户隔离与端到端加密，满足品牌方对数据主权与资产所有权的要求。
+              Security is enforced with IAM for access control, VPC Service
+              Controls for tenant isolation, and CMEK via Cloud KMS for
+              encryption—ensuring brands retain ownership and control of all
+              generated 3D assets and visual content.
             </div>
           </div>
         </section>
 
         <!-- Lab Insights -->
         <section>
-          <h2>Lab Insights · 更聪明的 3D 产品模拟</h2>
+          <h2>Lab Insights · Smarter 3D product simulations</h2>
           <p>
-            Solaya Lab 持续探索如何通过 3D GenAI 与物理感知建模，帮助品牌预测产品在不同环境、材质与光线下的真实表现。
+            Solaya Lab explores how 3D GenAI and physically-informed modeling
+            can help brands better predict how products look and behave across
+            materials, environments, and lighting.
           </p>
           <div class="section-card">
             <div class="section-grid">
               <div>
-                <div class="section-item-title">更高质量的 3D 重建</div>
+                <div class="section-item-title">Higher fidelity 3D reconstruction</div>
                 <div class="section-item-text">
-                  借助 Vertex AI 与可扩展 GPU 基础设施，Solaya 可以不断更新重建模型，提升细节表现与材质还原度，为虚拟试戴与高端品牌展示提供更真实的视觉体验。
+                  Leveraging Vertex AI and scalable GPU infrastructure, Solaya
+                  can continuously update reconstruction models to improve fine
+                  geometry and material response—enabling high-end visual
+                  experiences for luxury goods, cosmetics, furniture, and more.
                 </div>
               </div>
               <div>
-                <div class="section-item-title">数据驱动的内容策略</div>
+                <div class="section-item-title">Data-informed content strategy</div>
                 <div class="section-item-text">
-                  通过 BigQuery 与后续分析工具，品牌可以追踪不同角度、风格与场景组合对转化率与退货率的影响，从而反向指导内容生成策略与电商页面布局。
+                  With BigQuery and downstream BI tools, brands can analyze how
+                  different angles, environments, and creative variations impact
+                  conversion and return rates—feeding back into content
+                  generation strategies and storefront optimization.
                 </div>
               </div>
             </div>
@@ -722,7 +799,7 @@
           Bpifrance & INRIA
         </div>
         <div>
-          联系邮箱：
+          Contact:
           <a href="mailto:dali@solaya.info">dali@solaya.info</a>
         </div>
       </div>
@@ -730,16 +807,16 @@
   </div>
 
   <script>
-    // 动态年份
+    // Dynamic year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // 高级 3D 视角：跟随鼠标的 hero 卡片倾斜效果
+    // Advanced 3D tilt effect on hero card
     (function () {
       const card = document.getElementById("heroCard");
       if (!card) return;
 
-      const maxRotateX = 16; // deg
-      const maxRotateY = 20; // deg
+      const maxRotateX = 16;
+      const maxRotateY = 20;
 
       function handleMove(e) {
         const rect = card.getBoundingClientRect();
